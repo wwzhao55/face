@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>评论添加表情</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;outline-style: none;}
+	body{ background:#f4f4f4;}
+	.w500{
+		width: 500px;
+		height: auto;
+		margin: 0 auto;
+		overflow: hidden;}
+	.list{}
+	.list li{
+		padding:10px 0;
+		border-bottom:1px solid #ccc;
+		overflow: hidden;
+		line-height: 180%;
+	}
+	.send{padding:10px 0;}
+	.send textarea{
+		width: 97%;
+		border-radius:5px;
+		padding: 5px}
+	.send a.btn{
+		padding:5px 20px;
+		display: block;
+		color: #fff;
+		background: #ff4c51;
+		border-radius: 3px;
+		text-decoration: none;
+		font-size: 14px;
+		font-weight: bold;
+		float: left;
+		margin-top: 5px;
+	}
+	.send a.btn:hover{
+		background: #c53d41;
+		-webkit-transition:all 0.2s linear;
+		-moz-transition:all 0.2s linear;
+		-ms-transition:all 0.2s linear;
+		-o-transition:all 0.2s linear;
+		transition:all 0.2s linear;
+	}
+	.send .faces{
+		width: 25px;
+		height:25px;
+		display: block;
+		float: right;
+		background-image: url(image/faces.png) ;
+		background-position: 0 0; 
+		margin-right:5px;
+		margin-top:5px;
+	}
+	.send .on{
+		background-position: left bottom;
+	}
+	.face{
+		overflow: hidden;
+		display: none;}
+	.face li{
+		width: 22px;
+		height: 22px;
+		margin:3px;
+		float: left;
+	}
+	#content {
+	    width: 478px;
+	    height: 60px;
+	    float: left;
+	    border: 1px solid #ccc;
+	    background-color: #fff;
+	    border-radius: 5px;
+	    padding: 3px 10px;
+	}
+</style>
+</head>
+<body>
+<!--代码部分begin-->
+<div class="list w500">
+</div>
+<div class="send w500">
+	<div id="content" cols="30" rows="5" contenteditable="true"></div> <!-- style="display: none;" -->
+	<a href="javascript:;" class="btn">发布</a>
+	<a href="javascript:;" class='faces'></a>
+</div>
+<div class="face w500"></div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+$(function(){
+	var lanren = {
+		face:function(_this){
+			var target = $(_this).html();
+			if(target.length < 5){
+				$(_this).html("<img src='image/face/"+target+".gif' />")
+			}
+		},
+		faceimg:'',
+		imgs:function(min,max){
+			for(i=min;i<max;i++){  //通过循环创建60个表情，可扩展
+        		lanren.faceimg+='<li><a href="javascript:void(0)"><img src="image/face/'+(i+1)+'.gif" face="<emt>'+(i+1)+'</emt>"/></a></li>';
+    		};
+		},
+		cur:0
+	}
+	$('.list li emt').each(function(){
+		lanren.face(this);
+	});
+	$('.send a.btn').on('click',function(){
+		var a = $('#content').html();
+		a = a.replace(/<img src="image\/face\/(\d+?)\.gif">/g, "{:$1}")//要显示的
+		var b = a.replace(/\{\:(\d+?)}/g,"<img src='image\/face\/$1\.gif'>");//要提交的
+		if(!a){
+			alert('发布内容不能为空');
+			$('#content').focus();
+			return false;
+		}
+		$('.list').append(b);//显示多行评论
+
+		$('#content').html('');
+	});
+	$('.send .faces').on('click',function(){
+		if(lanren.cur == 0){
+			$(this).addClass('on');
+			lanren.cur =1;
+			$('.face').show(0);
+		}else if(lanren.cur == 1){
+			$(this).removeClass('on');
+			$('.face').hide(0);
+			lanren.cur =0;
+		}
+	})
+    lanren.imgs(0,60);
+    $('.face').append(lanren.faceimg);
+    $('.face li img').on('click',function(){
+		var target = $(this).attr('face');
+		var num = target.replace(/[a-z,A-Z,/,~'!<>@#$%^&*()-+_=:]/g, "");
+		var pre = $('#content').html();//可以作为显示用
+		var showimg = '<img src="image/face/'+num+'.gif">';
+		$('#content').html(pre+showimg);//target对应showimg
+		$(this).parents('.face').hide(0);
+		$('.send .faces').removeClass('on');
+		lanren.cur =0;
+		// lanren.face(this);
+	})
+})
+</script>
+<!--代码部分end-->
+</body>
+</html>
