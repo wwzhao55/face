@@ -1,0 +1,70 @@
+*{ margin:0; padding:0; list-style:none;outline-style: none;}
+	body{ background:#f4f4f4;}
+	.w500{
+		width: 500px;
+		height: auto;
+		margin: 0 auto;
+		overflow: hidden;}
+	.list{}
+	.list li{
+		padding:10px 0;
+		border-bottom:1px solid #ccc;
+		overflow: hidden;
+		line-height: 180%;
+	}
+	.send{padding:10px 0;}
+	.send textarea{
+		width: 97%;
+		border-radius:5px;
+		padding: 5px}
+	.send a.btn{
+		padding:5px 20px;
+		display: block;
+		color: #fff;
+		background: #ff4c51;
+		border-radius: 3px;
+		text-decoration: none;
+		font-size: 14px;
+		font-weight: bold;
+		float: left;
+		margin-top: 5px;
+	}
+	.send a.btn:hover{
+		background: #c53d41;
+		-webkit-transition:all 0.2s linear;
+		-moz-transition:all 0.2s linear;
+		-ms-transition:all 0.2s linear;
+		-o-transition:all 0.2s linear;
+		transition:all 0.2s linear;
+	}
+	.send .faces{
+		width: 25px;
+		height:25px;
+		display: block;
+		float: right;
+		background-image: url(image/faces.png) ;
+		background-position: 0 0; 
+		margin-right:5px;
+		margin-top:5px;
+	}
+	.send .on{
+		background-position: left bottom;
+	}
+	.face{
+		overflow: hidden;
+		display: none;}
+	.face li{
+		width: 22px;
+		height: 22px;
+		margin:3px;
+		float: left;
+	}
+	#content {
+	    width: 478px;
+	    height: 60px;
+	    float: left;
+	    border: 1px solid #ccc;
+	    background-color: #fff;
+	    border-radius: 5px;
+	    padding: 3px 10px;
+	}
